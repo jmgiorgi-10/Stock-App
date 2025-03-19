@@ -1,4 +1,4 @@
 # Stock-App #
 
 ## ETL Pipeline ##
-![ETL Pipeline](ETL Pipeline.png)
+![ETL Pipeline](ETL pipeline.png)
