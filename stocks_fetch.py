@@ -5,18 +5,6 @@ from kafka import KafkaProducer
 import requests
 import json
 
-# PostgreSQL Table
-create_table_query = '''
-CREATE TABLE IF NOT EXISTS stock_events (
-    id SERIAL PRIMARY KEY,
-    open DECIMAL(10, 4),
-    high DECIMAL(10, 4),
-    low DECIMAL(10, 4),
-    close DECIMAL(10, 4),
-    volume INT
-);
-'''
-
 # Initialize Kafka Producer
 producer = KafkaProducer(
     bootstrap_servers='localhost:9092',  # Replace with your broker address
@@ -32,25 +20,13 @@ messages = ["Hello", "testing", "here"]
 for msg in messages:
     producer.send(topic, value=msg)
 
-
-# Send message with an optional key
-# producer.send(topic, value=message)
-
 # Flush to ensure message is sent
-
-
 api_key = "FBT3PK9760PY7ONG"
 # Fetch stock data
 URL = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo'
 response = requests.get(URL)
 data = response.json()
 
-# # producer = KafkaProducer(bootstrap_servers='ec2-18-119-141-67.us-east-2.compute.amazonaws.com')
-# producer = KafkaProducer(bootstrap_servers='localhost:9092')
-
-# import pdb; pdb.set_trace()
-
-# print(data)
 
 # # Produce messages to the 'stock-events'
 topic = 'stock-events'
@@ -81,6 +57,5 @@ except Exception as e:
     print(f'Failed to produce message: {e}')
 
 producer.flush()
-
 # Close the producer
 producer.close()
