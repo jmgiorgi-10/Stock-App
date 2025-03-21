@@ -4,7 +4,7 @@
 
 We are using an LSTM, with online training based on OLHC features of $/[t-n, t-1/]$ datapoints, and evaluation on the closing price at time t, which is evaluated against the actual closing price.
 
-![Online LSTM Training](Online%20training.png)
+![Online LSTM Training](Online-training.png)
 
 ## Installation ##
 
