@@ -2,7 +2,7 @@
 
 ## Model ##
 
-We are using an LSTM, with online training based on a sliding window of OLHC as features at $[t-n, t-1]$, and evaluation on the closing price at time t, which is tested for accuracy against the actual closing price at time $t$.
+We are using an LSTM, with online training based on a sliding window of OLHC features, from $[t-n, t-1]$, and evaluation on the closing price at time t, which is tested for accuracy against the actual closing price at time $t$.
 
 ![Online LSTM Training](Online-training.png)
 
