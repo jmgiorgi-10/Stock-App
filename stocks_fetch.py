@@ -4,6 +4,7 @@
 from kafka import KafkaProducer
 import requests
 import json
+import time
 
 # Initialize Kafka Producer
 producer = KafkaProducer(
@@ -15,10 +16,10 @@ producer = KafkaProducer(
 # Topic name
 topic = 'stock-events'
 
-messages = ["Hello", "testing", "here"]
+# messages = ["Hello", "testing", "here"]
 
-for msg in messages:
-    producer.send(topic, value=msg)
+# for msg in messages:
+#     producer.send(topic, value=msg)
 
 # Flush to ensure message is sent
 api_key = "FBT3PK9760PY7ONG"
@@ -32,6 +33,7 @@ data = response.json()
 topic = 'stock-events'
 message_count = 0
 max_messages = 300 # Set the maximum number of messages to send
+polling_interval = 10
 
 
 # Delivery report callback for produced messages
@@ -41,21 +43,27 @@ def delivery_report(err, msg):
     else:
         print('Message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
 
-try:
-    for timestamp, values in data['Time Series (5min)'].items():
-        if message_count >= max_messages:
-            print("Reached maximum number of messages. Stopping producer.")
-            break
-        
-        record_key = timestamp
-        record_value = json.dumps(values)
-        producer.send(topic, key=record_key, value=record_value)
-        # producer.poll(1)
-        message_count += 1
 
-except Exception as e:
-    print(f'Failed to produce message: {e}')
+while True:
 
-producer.flush()
-# Close the producer
+    try:
+        for timestamp, values in data['Time Series (5min)'].items():
+            if message_count >= max_messages:
+                print("Reached maximum number of messages. Stopping producer.")
+                break
+            
+            record_key = timestamp
+            record_value = json.dumps(values)
+            
+            producer.send(topic, key=record_key, value=record_value)
+            # producer.poll(1)
+            message_count += 1
+
+    except Exception as e:
+        print(f'Failed to produce message: {e}')
+
+    time.sleep(polling_interval)
+
+    # producer.flush()
+    # Close the producer
 producer.close()

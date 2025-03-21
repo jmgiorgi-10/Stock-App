@@ -3,6 +3,18 @@ import json
 import psycopg2
 from psycopg2 import sql
 
+## Features
+
+# Open - price at which assest starts trading at beginning of time interval.
+# High - highest price asset reaches during the interval.
+# Low - lowest price asset reaches within interval.
+# Close - price at which asset stops trading at end of interval.
+
+## Target
+
+# Predict the next closing price.
+
+
 # Initialize Kafka Consumer
 consumer = KafkaConsumer(
     bootstrap_servers='localhost:9092',
