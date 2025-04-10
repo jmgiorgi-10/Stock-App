@@ -32,7 +32,7 @@ data = response.json()
 # # Produce messages to the 'stock-events'
 topic = 'stock-events'
 message_count = 0
-max_messages = 300 # Set the maximum number of messages to send
+max_messages = 3000 # Set the maximum number of messages to send
 polling_interval = 10
 
 
