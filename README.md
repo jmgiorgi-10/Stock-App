@@ -2,13 +2,11 @@
 
 ## Model ##
 
-We are using an LSTM, with online training based on a sliding window of OLHC features, from $[t-n, t-1]$, and evaluation on the closing price at time t, which is tested for accuracy against the actual closing price at time $t$.
+Stock prediction and plotting using lagged linear regression model with scikit-learn.
 
 ![Online LSTM Training](Online-training.png)
 
-## Installation ##
-
-## ETL Pipeline ##
+## Apache Kafka ##
 
 Follow official apache website instructions to download Kafka on the host, and run
 
@@ -17,8 +15,15 @@ chmod +x init_kafka.sh
 ./init_kafka.sh
 ```
 
-This will initialize a Kafka server on localhost:9020, and create a topic called stock-events. 
+This will initialize a Kafka server with Zookeeper on localhost:9020, and creates (for now) a single topic named stock-events. 
 
-The ETL data pipeline, which uses Apache Kafka, Airflow and a PostgreSQL database, allows us to scale and manage our application across a distributed system.
+## Next Steps ##
+
+### 1. Try other models (e.g. online lstm) 
+
+### 2. Apache airflow orchestration of model fitting Full Extraction, Transformation, Load (ETL) pipeline ###
+
+The next step in the data pipeline is to use apache airflow to refresh our database and refit the model after a certain amount of new datapoints are available.
+The ETL data pipeline also provides the option to scale and manage our application across a distributed system.
 
 ![ETL Pipeline](ETL%20pipeline.png)
