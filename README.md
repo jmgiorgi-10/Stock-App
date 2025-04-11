@@ -4,11 +4,9 @@ This project demonstrates a scalable architecture for real-time stock data proce
 
 A lagged linear regression model, built with scikit-learn, is applied to perform short-term stock price prediction based on historical patterns. The project showcases data visualization, feature engineering using lagged variables, and the potential of Kafka for real-time analytics pipelines.
 
-## model ##
+## model & data ##
 
-We are pulling data from the Alpha Vantage API: https://www.alphavantage.co/documentation/, from a 5 minute time-series intra-day ticker, and using a pub/sub framework to test the use of kafka to enable scalability.
-
-Stock prediction and plotting using lagged linear regression model with scikit-learn.
+We are pulling data from the Alpha Vantage API: https://www.alphavantage.co/documentation/, from a 5 minute time-series intra-day ticker, and using a pub/sub framework to test the use of kafka to enable scalability. The features are OHLV: 'open', 'high', 'low', and 'close', corresponding Stock prediction and plotting using lagged linear regression model with scikit-learn.
 
 ![Online LSTM Training](Online-training.png)
 
@@ -29,7 +27,7 @@ This will initialize a Kafka server with Zookeeper on localhost:9020, and create
 
 2. Test performance of other models on various stocks or aggregation of stocks - XGBoost and Online LSTM
 
-3. Apache airflow orchestration of model fitting Full Extraction, Transformation, Load (ETL) pipeline ###
+3. Apache airflow DAG for fetching/cleaning data, model training, evaluation, and visualization.
 
 The next step in the data pipeline is to use apache airflow to refresh our database and refit the model after a certain amount of new datapoints are available.
 The ETL data pipeline also provides the option to scale and manage our application across a distributed system.
