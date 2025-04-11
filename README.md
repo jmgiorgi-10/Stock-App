@@ -1,4 +1,4 @@
-# Stock-App #
+# Stock Prediction #
 
 This project demonstrates a scalable architecture for real-time stock data processing and prediction using Apache Kafka. We leverage the Alpha Vantage API to stream 5-minute intra-day stock price data into a Kafka pub/sub framework, enabling decoupled and scalable data ingestion and processing.
 
