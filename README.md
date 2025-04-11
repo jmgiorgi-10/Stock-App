@@ -10,6 +10,8 @@ We are pulling data from the Alpha Vantage API: https://www.alphavantage.co/docu
 
 ![Online LSTM Training](Online-training.png)
 
+## results ##
+
 ## apache kafka ##
 
 Follow official apache website instructions to download Kafka on the host, and run
