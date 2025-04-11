@@ -29,4 +29,5 @@ This will initialize a Kafka server with Zookeeper on localhost:9020, and create
 
 The next step in the data pipeline is to use apache airflow to refresh our database and refit the model after a certain amount of new datapoints are available.
 The ETL data pipeline also provides the option to scale and manage our application across a distributed system.
+
 ![ETL Pipeline](ETL%20pipeline.png)
