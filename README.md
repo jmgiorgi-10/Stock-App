@@ -6,7 +6,7 @@ We are pulling data from the Alpha Vantage API: https://www.alphavantage.co/docu
 
 Stock prediction and plotting using lagged linear regression model with scikit-learn.
 
-![Online LSTM Training](Online-training.png)width="300"
+![Online LSTM Training](Online-training.png)
 
 ## apache kafka ##
 
