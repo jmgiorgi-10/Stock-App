@@ -1,14 +1,14 @@
 # Stock-App #
 
-## Model ##
+## model ##
 
-We are pulling data from an Alpha Vantage API, from a 5 minute time-series intra-day ticker, and using a pub/sub 
+We are pulling data from the Alpha Vantage API: https://www.alphavantage.co/documentation/, from a 5 minute time-series intra-day ticker, and using a pub/sub framework to test the use of kafka to enable scalability.
 
 Stock prediction and plotting using lagged linear regression model with scikit-learn.
 
-![Online LSTM Training](Online-training.png)
+![Online LSTM Training](Online-training.png)width="300"
 
-## Apache Kafka ##
+## apache kafka ##
 
 Follow official apache website instructions to download Kafka on the host, and run
 
@@ -19,7 +19,7 @@ chmod +x init_kafka.sh
 
 This will initialize a Kafka server with Zookeeper on localhost:9020, and creates (for now) a single topic named stock-events. 
 
-## Next Steps ##
+## next steps ##
 
 1. Specify a performance metric for time series (accuracy, what else?)
 
