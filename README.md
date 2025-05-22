@@ -11,29 +11,3 @@ We are pulling data from the Alpha Vantage API: https://www.alphavantage.co/docu
 ![Online LSTM Training](Online-training.png)
 
 ## results ##
-
-
-
-## apache kafka ##
-
-Follow official apache website instructions to download Kafka on the host, and run
-
-```
-chmod +x init_kafka.sh
-./init_kafka.sh
-```
-
-This will initialize a Kafka server with Zookeeper on localhost:9020, and creates (for now) a single topic named stock-events. 
-
-## next steps ##
-
-1. Specify a performance metric for time series (accuracy, what else?)
-
-2. Test performance of other models on various stocks or aggregation of stocks - XGBoost and Online LSTM
-
-3. Apache airflow DAG for fetching/cleaning data, model training, evaluation, and visualization.
-
-The next step in the data pipeline is to use apache airflow to refresh our database and refit the model after a certain amount of new datapoints are available.
-The ETL data pipeline also provides the option to scale and manage our application across a distributed system.
-
-![ETL Pipeline](ETL%20pipeline.png)
