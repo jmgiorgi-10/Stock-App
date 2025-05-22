@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock Prediction with Linear Regression</title>
+    <script>
+        function toggleExclusive(clickedId) {
+            const ids = ['sma_checkbox', 'ewma_checkbox'];
+            for (const id of ids) {
+                if (id !== clickedId) {
+                    document.getElementById(id).checked = false;
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        div {
+            margin-bottom: 10px;
+        }
+        label {
+            margin-bottom: 5px;
+            display: block;
+            color: #666;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h3 {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Predict Stock Prices Using Lagged Regression</h2>
+    <form action="/predict" method="post">
+        <div>
+            <label for="Symbol">Stock Symbol:</label>
+            <input type="text" id="Symbol" name="Symbol" required>
+        </div>
+        <button type="submit">Predict</button>
+        <label>
+            <input type="checkbox" name="sma_checkbox", id="sma_checkbox" value="no", onclick="toggleExclusive('sma_checkbox')">
+            Simple Moving Average (SMA) for OHLC stock features.
+        </label>
+        <label>
+            <input type="checkbox" name="ewma_checkbox", id="ewma_checkbox" value="no", onclick="toggleExclusive('ewma_checkbox')">
+            Exponential Weighted Moving Average (EWMA) for OHLC stock features.
+        </label>
+    </form>
+
+    <!-- <form method="POST">
+        <label>
+            <input type="checkbox" name="sma_checkbox", id="sma_checkbox" value="no", onclick="toggleExclusive('sma_checkbox')">
+            Simple Moving Average (SMA) for OHLC stock features.
+        </label>
+        <label>
+            <input type="checkbox" name="ewma_checkbox", id="ewma_checkbox" value="no", onclick="toggleExclusive('ewma_checkbox')">
+            Exponential Weighted Moving Average (EWMA) for OHLC stock features.
+        </label>
+    </form> -->
+
+    {% if plot_div %}
+        <h3>Prediction for {{ symbol }}</h3>
+        {{ plot_div | safe }}
+    {% endif %}
+
+    <section id="metrics">
+
+        {% if symbol %}
+        <h2>{{ symbol }} Prediction Metrics</h2>
+
+        Root mean squared error:
+
+        Mean absolute error:
+
+        $R^2$:
+
+        {% endif %}
+
+    </section>
+
+    <section id="algorithm-description">
+        {% if symbol %}
+        <h2>About the Algorithm</h2>
+        <p>
+            This proof-of-concept application uses a supervised autoregressive machine learning model to predict future stock prices (currently for <strong>{{symbol.upper() }}</strong>) based on historical time series data. 
+            Specifically, we apply a linear regression algorithm trained on 5-minute interval closing prices fetched via the Alpha Vantage API.
+        </p>
+        <p>
+            Features such as lagged open, high, low and close prices and other time-based indicators are used to inform the model.
+            The model is trained on recent data, and predictions are updated each time the user submits a new symbol.
+        </p>
+        <p>
+            If you’re interested in the technical details, the backend is built using Python’s Flask web framework and the model training and evaluation is conducted with <code>scikit-learn</code> and <code>pandas</code> libraries.
+        </p>
+        {% endif %}
+    </section>
+
+    {% if symbol %}
+    <h2>Would you make a Profit with this Approach?</h2>
+    <p>
+    On a surface level it might seem that, because the predicted line is following the actual pretty closesly at most points, this linear regression on <strong>{{symbol.upper() }}</strong> could provide us sufficient information to make a profit.
+    But, we must keep in mind we are using a lagged regression approach, meaning our input features are based on all previous datapoints up to time <math>t</math>, to predict <math>t+1</math>. 
+    </p>
+    <p>
+    To have revenue potential, we need to see situations with high magnitude slope where predicted and actual line up closesly, which would provide us information to be ahead of the market.
+    Then, to make a profit, this delta would on average have to be higher than any associated trading costs.
+    On a related note, it is of course impossible to predict stocks without having knowledge of the future, since they can be influenced by many events which are completely exogeneous to this autoregressive model (e.g. something happening in the news). This could be in the form of lower latency than others, intelligent use of non-obvious features (e.g. using sattelite imagery to determine how full a company's parking lot is), or inside information.
+    </p>
+    {% endif %}
+</section>
+
+</body>
+
+</html>

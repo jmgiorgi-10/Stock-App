@@ -1,0 +1,15 @@
+Flask
+
+dotenv
+
+scikit-learn
+
+numpy
+
+requests 
+
+plotly
+
+sqlalchemy
+
+pandas 
